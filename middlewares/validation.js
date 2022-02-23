@@ -37,34 +37,37 @@ const quantityValidation = (req, res, next) => {
 };
 
 const quantityAmountValidation = (req, res, next) => {
-  // try {
+  try {
   const requisition = [...req.body];
-  console.log('quant', requisition);
-  if (requisition.some((sale) => !sale.quantity && sale.quantity !== 'number')) {
+  // console.log('quant', requisition);
+  if (requisition.some(({ quantity }) => !quantity)) {
     return res.status(400)
       .json({ message: '"quantity" is required' });
   }
-  if (requisition.some(({ sale }) => sale.quantity <= 0)) {
+  // console.log('SEGUNDOTESTE', requisition);
+  if (requisition.some(({ quantity }) => quantity <= 0)) {
     return res.status(422)
       .json({ message: '"quantity" must be greater than or equal to 1' });
   }
-// } catch (e) {
-    next();
-  // }
+  next();
+} catch (e) {
+    next(e);
+  }
 };
 
 const productIdValidation = (req, res, next) => {
-  // try {
-  // const requisition = [...req.body];
-  const { productId } = req.body;
-  // console.log('requisition', requisition);
-  // if (requisition.some((elem) => !elem.id)) {
-  if (!productId) {
+  try {
+  const requisition = [...req.body];
+  // const { productId } = req.body;
+  // console.log('requisition', productId);
+  // if (!productId) {
+  if (requisition.some((elem) => !elem.id)) {
     return res.status(400).json({ message: '"productId" is required' });
   }
-// } catch (e) {
   next();
-// }
+} catch (e) {
+  next(e);
+}
 };
 
 module.exports = {

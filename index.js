@@ -29,11 +29,11 @@ app.get('/products', selectAll);
 
 app.get('/products/:id', selectbyId);
 
-app.post('/products', nameValidation, repeatedProduct, quantityValidation, 
-quantityNumberValidation,
+app.post('/products', nameValidation, repeatedProduct, quantityNumberValidation,
+ quantityValidation, 
 rescue(createProduct));
 
-app.put('/products/:id', quantityValidation, nameValidation, 
+app.put('/products/:id', quantityNumberValidation, quantityValidation, nameValidation,
 editProduct);
 
 app.delete('/products/:id', deleteProduct);
@@ -42,7 +42,9 @@ app.get('/sales', getSales);
 
 app.get('/sales/:id', showSalesById);
 
-app.post('/sales', productIdValidation, quantityAmountValidation, registerSale);
+app.post('/sales', quantityAmountValidation, productIdValidation, registerSale);
+
+app.put('/sales/:id');
 
 app.use(error);
 

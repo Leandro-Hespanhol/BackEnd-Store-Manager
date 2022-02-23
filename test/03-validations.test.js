@@ -135,7 +135,7 @@ describe("03-validations", () => {
 				.expect("status", 400)
 				.then((response) => {
 					const { json } = response;
-					console.log(response)
+					// console.log(response)
 
 					expect(Object.keys(json)).toContain("message");
 					expect(json.message).toBe('"quantity" is required');
