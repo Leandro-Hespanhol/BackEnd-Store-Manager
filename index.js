@@ -10,7 +10,7 @@ const { createProduct, selectAll,
 
 const { nameValidation, quantityValidation, 
   productIdValidation, 
-  repeatedProduct } = require('./middleware/validation');
+  repeatedProduct } = require('./middlewares/validation');
 
 const app = express();
 
