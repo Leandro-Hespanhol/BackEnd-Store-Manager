@@ -44,7 +44,7 @@ app.get('/sales/:id', showSalesById);
 
 app.post('/sales', quantityAmountValidation, productIdValidation, registerSale);
 
-app.put('/sales/:id');
+app.put('/sales/:id', quantityAmountValidation, productIdValidation);
 
 app.use(error);
 
