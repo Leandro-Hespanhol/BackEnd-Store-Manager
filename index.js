@@ -10,8 +10,12 @@ const { createProduct, selectAll,
 
 const { nameValidation, quantityValidation, 
   productIdValidation, 
-  repeatedProduct } = require('./middlewares/validation');
+  repeatedProduct,
+  quantityAmountValidation,
+  quantityNumberValidation, 
+   } = require('./middlewares/validation');
 const { getSales, registerSale, showSalesById } = require('./controllers/salesController');
+const error = require('./middlewares/error');
 
 const app = express();
 
@@ -25,7 +29,8 @@ app.get('/products', selectAll);
 
 app.get('/products/:id', selectbyId);
 
-app.post('/products', nameValidation, repeatedProduct, quantityValidation,
+app.post('/products', nameValidation, repeatedProduct, quantityValidation, 
+quantityNumberValidation,
 rescue(createProduct));
 
 app.put('/products/:id', quantityValidation, nameValidation, 
@@ -37,7 +42,9 @@ app.get('/sales', getSales);
 
 app.get('/sales/:id', showSalesById);
 
-app.post('/sales', productIdValidation, quantityValidation, registerSale);
+app.post('/sales', productIdValidation, quantityAmountValidation, registerSale);
+
+app.use(error);
 
 app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);

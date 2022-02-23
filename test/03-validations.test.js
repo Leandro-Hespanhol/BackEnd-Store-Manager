@@ -125,7 +125,7 @@ describe("03-validations", () => {
 				});
 		});
 
-		it.only("quando cadastrar uma venda será validado que o campo quantity está presente no body", async () => {
+		it("quando cadastrar uma venda será validado que o campo quantity está presente no body", async () => {
 			await frisby
 				.post(`${url}/sales/`, [
 					{
@@ -134,6 +134,7 @@ describe("03-validations", () => {
 				])
 				.expect("status", 400)
 				.then((response) => {
+					const { json } = response;
 					console.log(response)
 
 					expect(Object.keys(json)).toContain("message");

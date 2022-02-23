@@ -18,12 +18,17 @@ const repeatedProduct = async (req, res, next) => {
   next();
 };
 
-const quantityValidation = async (req, res, next) => {
+const quantityNumberValidation = async (req, res, next) => {
   const { quantity } = req.body;
   // console.log('quantity', quantity);
-  if (!quantity && quantity !== 0) { 
+  if (!quantity && typeof quantity !== 'number') { // -1
     return res.status(400).json({ message: '"quantity" is required' });
   }
+  next();
+};
+
+const quantityValidation = (req, res, next) => {
+  const { quantity } = req.body;
   if (quantity <= 0 || typeof quantity !== 'number') {
     return res.status(422)
       .json({ message: '"quantity" must be greater than or equal to 1' });
@@ -31,19 +36,42 @@ const quantityValidation = async (req, res, next) => {
   next();
 };
 
-const productIdValidation = async (req, res, next) => {
+const quantityAmountValidation = (req, res, next) => {
+  // try {
+  const requisition = [...req.body];
+  console.log('quant', requisition);
+  if (requisition.some((sale) => !sale.quantity && sale.quantity !== 'number')) {
+    return res.status(400)
+      .json({ message: '"quantity" is required' });
+  }
+  if (requisition.some(({ sale }) => sale.quantity <= 0)) {
+    return res.status(422)
+      .json({ message: '"quantity" must be greater than or equal to 1' });
+  }
+// } catch (e) {
+    next();
+  // }
+};
+
+const productIdValidation = (req, res, next) => {
+  // try {
+  // const requisition = [...req.body];
   const { productId } = req.body;
-  // console.log('productId', productId);
+  // console.log('requisition', requisition);
+  // if (requisition.some((elem) => !elem.id)) {
   if (!productId) {
     return res.status(400).json({ message: '"productId" is required' });
   }
-  // console.log('req.body.product_id', req.body.product_id);
+// } catch (e) {
   next();
+// }
 };
 
 module.exports = {
  nameValidation,
  quantityValidation,
+ quantityNumberValidation,
+ quantityAmountValidation,
  productIdValidation,
  repeatedProduct,
 };
