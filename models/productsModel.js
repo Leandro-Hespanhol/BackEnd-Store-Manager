@@ -58,23 +58,6 @@ const productDeletion = async (id) => {
   return productToDelete;
 };
 
-const saleRegistered = async () => {
-  const querySales = 'INSERT INTO sales () VALUES ();';
-  const [sale] = await connection.execute(querySales);
-  // console.log('salesalesale', sale.insertId);
-
-  return sale.insertId;
-};
-
-const productSaleRegistered = async (saleId, productId, quantity) => {
-  const queryProductSales = `INSERT INTO sales_products 
-  (sale_id, product_id, quantity) VALUES (?,?,?);`;
-  const productSale = await connection.execute(queryProductSales, [saleId, productId, quantity]);
-  // console.log('productsale', productSale);
-
-  return productSale;
-};
-
 module.exports = { 
   insertProduct,
   findProduct,
@@ -82,5 +65,4 @@ module.exports = {
   findById,
   productEdition,
   productDeletion,
-  saleRegistered,
-  productSaleRegistered };
+};

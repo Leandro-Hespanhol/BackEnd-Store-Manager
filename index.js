@@ -5,12 +5,13 @@ const bodyParser = require('body-parser');
 const rescue = require('express-rescue');
 
 const { createProduct, selectAll, 
-  selectbyId, editProduct, deleteProduct, 
-  regiterSale } = require('./controllers/productsController');
+  selectbyId, editProduct, deleteProduct,
+   } = require('./controllers/productsController');
 
 const { nameValidation, quantityValidation, 
   productIdValidation, 
   repeatedProduct } = require('./middlewares/validation');
+const { getSales, registerSale, showSalesById } = require('./controllers/salesController');
 
 const app = express();
 
@@ -32,11 +33,11 @@ editProduct);
 
 app.delete('/products/:id', deleteProduct);
 
-app.get('./sales');
+app.get('/sales', getSales);
 
-app.get('./sales/:id');
+app.get('/sales/:id', showSalesById);
 
-app.post('/sales', productIdValidation, quantityValidation, regiterSale);
+app.post('/sales', productIdValidation, quantityValidation, registerSale);
 
 app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);

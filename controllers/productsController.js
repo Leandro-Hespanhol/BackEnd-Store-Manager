@@ -1,7 +1,6 @@
 const { getAll, findById, productEdition,
   productDeletion } = require('../models/productsModel');
 const { productsCreate } = require('../services/productsService');
-const { saleRegisterResponse } = require('../services/salesService');
 
 const selectAll = async (_req, res) => res.status(200).json(await getAll());
 
@@ -52,22 +51,7 @@ const deleteProduct = async (req, res) => {
   }
   await productDeletion(id);
   
-  return res.status(200).json(productFound[0]);
-};
-
-const regiterSale = async (req, res) => {
-  const { product_id, quantity } = req.body;
-
-  const saleResponse = await saleRegisterResponse(product_id, quantity);
-  // const newSale = await saleRegistered();
-
-  // console.log('saleResponse', await saleResponse.itemSold.find((elem) => elem.product_id));
-  // const response = await saleResponse.itemSold.find((elem) => elem.product_id);
-  // const productSale = await productSaleRegistered(newSale, product_id, quantity);
-
-  // console.log('controller', productSale);
-
-  res.status(200).json(saleResponse);
+  return res.status(204).json(productFound[0]);
 };
 
 module.exports = { createProduct,
@@ -75,5 +59,4 @@ module.exports = { createProduct,
   selectbyId,
   editProduct,
   deleteProduct,
-  regiterSale,
 };
