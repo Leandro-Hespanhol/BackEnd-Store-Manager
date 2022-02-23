@@ -1,19 +1,23 @@
 const { saleRegistered, productSaleRegistered, 
    } = require('../models/salesModel');
 
-const saleRegisterResponse = async (productId, quantity) => {
+const saleRegisterResponse = async (req) => {
   const newSaleId = await saleRegistered();
 
-  await productSaleRegistered(newSaleId, productId, quantity);
+  // console.log('SERVICE', newSaleId, req.productId, req.quantity);
+
+  await productSaleRegistered(newSaleId, req.productId, req.quantity);
 
   const result = {
-    productId: Number(productId),
-    quantity,
+    productId: Number(req.productId),
+    quantity: req.quantity,
   };
+
+  // console.log('result', result);
 
   return ({
     id: newSaleId,
-    itemSold: [
+    itemsSold: [
       result,  
     ],
   });

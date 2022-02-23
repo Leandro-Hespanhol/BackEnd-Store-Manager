@@ -2,11 +2,17 @@ const { getAllSales, findSaleById } = require('../models/salesModel');
 const { saleRegisterResponse } = require('../services/salesService');
 
 const registerSale = async (req, res) => {
-  const { productId, quantity } = req.body;
+  const requisition = [...req.body];
+  console.log('reqbody', requisition);
 
-  const saleResponse = await saleRegisterResponse(productId, quantity);
+  // const saleResponse = await saleRegisterResponse(productId, quantity);
+  const response = [];
+  await requisition.forEach((elem) => [response.push(saleRegisterResponse(elem))]);
+  // const saleResponse = await saleRegisterResponse(...requisition);
 
-  res.status(200).json(saleResponse);
+  console.log('response', response);
+
+  res.status(201).json(response);
 };
 
 const showSalesById = async (req, res) => {

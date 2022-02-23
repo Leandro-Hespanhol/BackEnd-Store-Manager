@@ -59,9 +59,9 @@ const productIdValidation = (req, res, next) => {
   try {
   const requisition = [...req.body];
   // const { productId } = req.body;
-  // console.log('requisition', productId);
+  // console.log('requisition', requisition.some((elem) => !elem.productId));
   // if (!productId) {
-  if (requisition.some((elem) => !elem.id)) {
+  if (requisition.some((elem) => !elem.productId)) {
     return res.status(400).json({ message: '"productId" is required' });
   }
   next();

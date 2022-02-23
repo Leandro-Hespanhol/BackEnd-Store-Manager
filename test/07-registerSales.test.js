@@ -47,7 +47,7 @@ describe("07-registerSales", () => {
         .expect("status", 201)
         .then((response) => {
           const { json } = response;
-
+          console.log('jailsonnn', json);
           expect(json).toHaveProperty("id");
           expect(json).toHaveProperty("itemsSold");
 
