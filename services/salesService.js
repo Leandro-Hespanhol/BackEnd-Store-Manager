@@ -1,4 +1,4 @@
-const { saleRegistered, productSaleRegistered, 
+const { saleRegistered, productSaleRegistered, updateSale, 
    } = require('../models/salesModel');
 
 const saleRegisterResponse = async (requisition) => {
@@ -25,8 +25,15 @@ const saleRegisterResponse = async (requisition) => {
 };
 
 const saleEdition = async (id, requisition) => {
-  console.log('salesIDFOUND', id);
-  console.log('salesREQUISITION', requisition);
+  const newSale = await updateSale(id, ...requisition);
+  console.log('newSale', newSale);
+  // console.log('salesREQUISITION', ...requisition);
+  return ({
+    saleId: id,
+    itemUpdated: [
+      ...requisition,  
+    ],
+  });
 };
 
 module.exports = {

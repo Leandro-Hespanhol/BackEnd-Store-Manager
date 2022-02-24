@@ -30,9 +30,10 @@ const editSale = async (req, res) => {
 
   // console.log(idFound);
   // console.log(requisition);
-  await saleEdition(id, requisition);
+  const saleEdited = await saleEdition(id, requisition);
+  console.log('saleEdited', saleEdited);
 
-  res.status(200).json(requisition);
+  res.status(200).json(saleEdited);
 };
 
 const getSales = async (_req, res) => res.status(200).json(await getAllSales());
