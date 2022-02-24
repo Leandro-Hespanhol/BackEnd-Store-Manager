@@ -49,6 +49,6 @@ app.put('/sales/:id', quantityAmountValidation, productIdValidation, editSale);
 
 app.use(error);
 
-app.listen(3000, () => {
-  console.log(`Escutando na porta ${3000}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Escutando na porta ${process.env.PORT}`);
 });
