@@ -4,21 +4,26 @@ const { saleRegistered, productSaleRegistered,
 const saleRegisterResponse = async (req) => {
   const newSaleId = await saleRegistered();
 
-  // console.log('SERVICE', newSaleId, req.productId, req.quantity);
+  console.log('SERVICE', req);
 
-  await productSaleRegistered(newSaleId, req.productId, req.quantity);
+  // const salesObj = {};
 
-  const result = {
-    productId: Number(req.productId),
-    quantity: req.quantity,
-  };
+  req.forEach((sales) => productSaleRegistered(newSaleId, sales.productId, sales.quantity));
+  
+  const salesObj = req.map((productsSales) => ({
+      // salesArray: {
+      productId: Number(productsSales.productId),
+      quantity: productsSales.quantity,
+      // teste: console.log('OBJETO', productsSales),
+    // },
+  }));
 
   // console.log('result', result);
 
   return ({
     id: newSaleId,
     itemsSold: [
-      result,  
+      ...salesObj,  
     ],
   });
 };

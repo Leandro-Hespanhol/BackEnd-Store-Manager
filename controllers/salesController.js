@@ -5,14 +5,17 @@ const registerSale = async (req, res) => {
   const requisition = [...req.body];
   console.log('reqbody', requisition);
 
-  // const saleResponse = await saleRegisterResponse(productId, quantity);
-  const response = [];
-  await requisition.forEach((elem) => [response.push(saleRegisterResponse(elem))]);
+  const saleResponse = await saleRegisterResponse(requisition);
+  // const response = [];
+  // requisition.forEach((elem) => [response.push(saleRegisterResponse(elem))]);
   // const saleResponse = await saleRegisterResponse(...requisition);
+  // for (let i = 0; requisition.length > i; i += 1) {
+  //   response.push(await saleRegisterResponse(requisition[i]));
+  // }
 
-  console.log('response', response);
+  console.log('response', saleResponse);
 
-  res.status(201).json(response);
+  return res.status(201).json(saleResponse);
 };
 
 const showSalesById = async (req, res) => {
