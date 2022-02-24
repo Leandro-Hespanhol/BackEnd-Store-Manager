@@ -12,7 +12,7 @@ const registerSale = async (req, res) => {
 const showSalesById = async (req, res) => {
   const { id } = req.params;
   const idFound = await searchSaleById(id);
-  console.log(idFound);
+  // console.log('linha15salescontroll', idFound);
   
   if (!idFound.length) return res.status(404).json({ message: 'Sale not found' });
 

@@ -3,7 +3,6 @@ const connection = require('./connection');
 const getAll = async () => {
   const query = 'SELECT * FROM products;';
   const [fullSelect] = await connection.execute(query);
-  // console.log(await fullSelect);
 
   return fullSelect;
 };
@@ -11,7 +10,6 @@ const getAll = async () => {
 const insertProduct = async ({ name, quantity }) => {
   const query = 'INSERT INTO products (name, quantity) VALUES (?,?)';
   const [insertedProduct] = await connection.execute(query, [name, quantity]);
-  // console.log(insertedProduct);
   return {
     id: insertedProduct.insertId,
     name,
@@ -22,8 +20,6 @@ const insertProduct = async ({ name, quantity }) => {
 const findProduct = async (name) => {
   const query = 'SELECT * from products WHERE name = ?';
   const [productFound] = await connection.execute(query, [name]);
-  // console.log('name', name);
-  // console.log('produto', productFound);
 
   return productFound.length;
 };

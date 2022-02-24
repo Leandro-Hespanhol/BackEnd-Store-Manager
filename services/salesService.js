@@ -40,7 +40,6 @@ const saleEdition = async (id, requisition) => {
 
 const getEverySales = async () => {
   const sales = await getAllSales();
-  console.log('sales', sales);
   return sales;
 };
 
