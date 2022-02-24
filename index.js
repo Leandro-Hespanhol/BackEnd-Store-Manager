@@ -14,7 +14,8 @@ const { nameValidation, quantityValidation,
   quantityAmountValidation,
   quantityNumberValidation, 
    } = require('./middlewares/validation');
-const { getSales, registerSale, showSalesById } = require('./controllers/salesController');
+const { getSales, registerSale, showSalesById, 
+  editSale } = require('./controllers/salesController');
 const error = require('./middlewares/error');
 
 const app = express();
@@ -44,7 +45,7 @@ app.get('/sales/:id', showSalesById);
 
 app.post('/sales', quantityAmountValidation, productIdValidation, registerSale);
 
-app.put('/sales/:id', quantityAmountValidation, productIdValidation);
+app.put('/sales/:id', quantityAmountValidation, productIdValidation, editSale);
 
 app.use(error);
 

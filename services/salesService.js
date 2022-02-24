@@ -1,4 +1,4 @@
-const { saleRegistered, productSaleRegistered, 
+const { saleRegistered, productSaleRegistered, findSaleById, 
    } = require('../models/salesModel');
 
 const saleRegisterResponse = async (requisition) => {
@@ -24,7 +24,14 @@ const saleRegisterResponse = async (requisition) => {
   });
 };
 
+const saleEdition = async (id, requisition) => {
+  const [idFound] = await findSaleById(id);
+  console.log('salesIDFOUND', idFound);
+  console.log('salesREQUISITION', requisition);
+};
+
 module.exports = {
   // allSales,
   saleRegisterResponse,
+  saleEdition,
 };

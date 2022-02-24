@@ -1,5 +1,5 @@
 const { getAllSales, findSaleById } = require('../models/salesModel');
-const { saleRegisterResponse } = require('../services/salesService');
+const { saleRegisterResponse, saleEdition } = require('../services/salesService');
 
 const registerSale = async (req, res) => {
   const requisition = req.body;
@@ -23,6 +23,16 @@ const showSalesById = async (req, res) => {
 
 const editSale = async (req, res) => {
   const { id } = req.params;
+  const requisition = req.body;
+  const [idFound] = await findSaleById(id);
+
+  if (!idFound.length) return res.status(404).json({ message: 'Sale not found' });
+
+  // console.log(idFound);
+  // console.log(requisition);
+  saleEdition(id, requisition);
+
+  res.status(200).json(requisition);
 };
 
 const getSales = async (_req, res) => res.status(200).json(await getAllSales());
