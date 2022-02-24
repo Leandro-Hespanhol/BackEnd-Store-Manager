@@ -1,4 +1,4 @@
-const { saleRegistered, productSaleRegistered, findSaleById, 
+const { saleRegistered, productSaleRegistered, 
    } = require('../models/salesModel');
 
 const saleRegisterResponse = async (requisition) => {
