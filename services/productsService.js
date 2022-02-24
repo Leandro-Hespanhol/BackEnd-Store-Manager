@@ -1,4 +1,5 @@
-const { insertProduct, getAll, findById, productEdition } = require('../models/productsModel');
+const { insertProduct, getAll, findById, productEdition,
+  productDeletion } = require('../models/productsModel');
 
 const getAllProducts = async () => {
   const allProducts = await getAll();
@@ -31,8 +32,15 @@ const productsCreate = async (name, quantity) => {
   return newProduct;
 };
 
+const deletingProduct = async (id) => {
+  const product = await productDeletion(id);
+  if (!product) return null;
+  return product;
+};
+
 module.exports = { 
   productsCreate,
   getAllProducts,
   getById,
-  productToEdit };
+  productToEdit,
+  deletingProduct };

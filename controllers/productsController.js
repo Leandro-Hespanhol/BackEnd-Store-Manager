@@ -1,6 +1,5 @@
-const { findById, productDeletion } = require('../models/productsModel');
 const { getAllProducts, productsCreate,
-   getById, productToEdit } = require('../services/productsService');
+   getById, productToEdit, deletingProduct } = require('../services/productsService');
 
 const selectAll = async (_req, res) => res.status(200).json(await getAllProducts());
 
@@ -46,14 +45,15 @@ const editProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   const { id } = req.params;
 
-  const [productFound] = await findById(id);
+  const productFound = await getById(id);
+  console.log('productFound', productFound);
 
-  if (await productDeletion(id) === null) {
+  if (await deletingProduct(id) === null) {
     return res.status(404).json({ message: 'Product not found' });
   }
-  await productDeletion(id);
+  await deletingProduct(id);
   
-  return res.status(204).json(productFound[0]);
+  return res.status(204).json(productFound);
 };
 
 module.exports = { createProduct,
