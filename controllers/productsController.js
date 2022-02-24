@@ -1,16 +1,18 @@
-const { getAll, findById, productEdition,
+const { findById, productEdition,
   productDeletion } = require('../models/productsModel');
-const { productsCreate } = require('../services/productsService');
+const { getAllProducts, productsCreate,
+   getById } = require('../services/productsService');
 
-const selectAll = async (_req, res) => res.status(200).json(await getAll());
+const selectAll = async (_req, res) => res.status(200).json(await getAllProducts());
 
 const selectbyId = async (req, res) => {
   const { id } = req.params;
-  const [idFound] = await findById(id);
+  const getIdItem = await getById(id);
+  // console.log('getIdItem', getIdItem);
   
-  if (!idFound.length) return res.status(404).json({ message: 'Product not found' });
+  if (!getIdItem) return res.status(404).json({ message: 'Product not found' });
 
-  return res.status(200).json(idFound[0]);
+  return res.status(200).json(getIdItem);
 };
 
 const createProduct = async (req, res, next) => {
