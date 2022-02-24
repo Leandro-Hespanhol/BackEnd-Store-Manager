@@ -38,7 +38,7 @@ const quantityValidation = (req, res, next) => {
 
 const quantityAmountValidation = (req, res, next) => {
   try {
-  const requisition = [...req.body];
+  const requisition = req.body;
   // console.log('quant', requisition);
   if (requisition.some(({ quantity }) => !quantity)) {
     return res.status(400)
@@ -57,7 +57,7 @@ const quantityAmountValidation = (req, res, next) => {
 
 const productIdValidation = (req, res, next) => {
   try {
-  const requisition = [...req.body];
+  const requisition = req.body;
   // const { productId } = req.body;
   // console.log('requisition', requisition.some((elem) => !elem.productId));
   // if (!productId) {

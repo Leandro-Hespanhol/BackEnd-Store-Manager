@@ -1,24 +1,20 @@
 const { saleRegistered, productSaleRegistered, 
    } = require('../models/salesModel');
 
-const saleRegisterResponse = async (req) => {
+const saleRegisterResponse = async (requisition) => {
   const newSaleId = await saleRegistered();
 
-  console.log('SERVICE', req);
+  // console.log('SERVICE', requisition);
 
-  // const salesObj = {};
-
-  req.forEach((sales) => productSaleRegistered(newSaleId, sales.productId, sales.quantity));
+  requisition.forEach((sales) => productSaleRegistered(newSaleId, sales.productId, sales.quantity));
   
-  const salesObj = req.map((productsSales) => ({
-      // salesArray: {
+  const salesObj = requisition.map((productsSales) => ({
       productId: Number(productsSales.productId),
       quantity: productsSales.quantity,
       // teste: console.log('OBJETO', productsSales),
-    // },
   }));
 
-  // console.log('result', result);
+  // console.log('result', salesObj);
 
   return ({
     id: newSaleId,

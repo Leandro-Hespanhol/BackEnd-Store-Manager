@@ -22,7 +22,7 @@ const findSaleById = async (id) => {
 const saleRegistered = async () => {
   const querySales = 'INSERT INTO sales () VALUES ();';
   const [sale] = await connection.execute(querySales);
-  console.log('salesalesale', sale.insertId);
+  // console.log('salesalesale', sale.insertId);
 
   return sale.insertId;
 };
@@ -30,7 +30,7 @@ const saleRegistered = async () => {
 const productSaleRegistered = async (saleId, productId, quantity) => {
   const queryProductSales = `INSERT INTO sales_products 
   (sale_id, product_id, quantity) VALUES (?,?,?);`;
-  console.log('saleId, productId, quantity', saleId, productId, quantity);
+  // console.log('saleId, productId, quantity', saleId, productId, quantity);
   const productSale = await connection.execute(queryProductSales, [saleId, productId, quantity]);
   // console.log('productsale', productSale);
 
