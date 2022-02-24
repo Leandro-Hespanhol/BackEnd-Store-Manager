@@ -9,7 +9,6 @@ const getAllProducts = async () => {
 
 const getById = async (id) => {
   const [idFound] = await findById(id);
-  // console.log(idFound[0]);
   if (!idFound) return null;
 
   return idFound[0];
@@ -22,12 +21,10 @@ const productToEdit = async (id, name, quantity) => {
 };
 
 const productsCreate = async (name, quantity) => {
-  // console.log('service', name, quantity);
   const newProduct = await insertProduct({
     name,
     quantity,
   });
-    // console.log('newproduct', newProduct);
 
   return newProduct;
 };

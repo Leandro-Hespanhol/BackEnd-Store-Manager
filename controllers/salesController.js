@@ -3,11 +3,8 @@ const { saleRegisterResponse, saleEdition,
 
 const registerSale = async (req, res) => {
   const requisition = req.body;
-  // console.log('reqbody', requisition);
 
   const saleResponse = await saleRegisterResponse(requisition);
-
-  // console.log('response', saleResponse);
 
   return res.status(201).json(saleResponse);
 };
@@ -15,8 +12,9 @@ const registerSale = async (req, res) => {
 const showSalesById = async (req, res) => {
   const { id } = req.params;
   const idFound = await searchSaleById(id);
+  console.log(idFound);
   
-  if (!idFound) return res.status(404).json({ message: 'Sale not found' });
+  if (!idFound.length) return res.status(404).json({ message: 'Sale not found' });
 
   return res.status(200).json(idFound);
 };
@@ -28,10 +26,7 @@ const editSale = async (req, res) => {
 
   if (!idFound) return res.status(404).json({ message: 'Sale not found' });
 
-  // console.log(idFound);
-  // console.log(requisition);
   const saleEdited = await saleEdition(id, requisition);
-  // console.log('saleEdited', saleEdited);
 
   res.status(200).json(saleEdited);
 };

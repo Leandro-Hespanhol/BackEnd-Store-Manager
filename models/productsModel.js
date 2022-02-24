@@ -38,10 +38,8 @@ const findById = async (id) => {
 };
 
 const productEdition = async (id, name, quantity) => {
-  // console.log('model', id, name, quantity);
   const query = 'UPDATE products SET name = ?, quantity = ? WHERE id = ?;';
   const productEdited = await connection.execute(query, [name, quantity, id]);
-  // console.log('productEdited', productEdited);
 
   if (!productEdited.length) return null;
 
@@ -51,7 +49,6 @@ const productEdition = async (id, name, quantity) => {
 const productDeletion = async (id) => {
   const query = 'DELETE from products WHERE id = ?;';
   const productToDelete = await connection.execute(query, [id]);
-  // console.log(productToDelete[0].affectedRows);
 
   if (!productToDelete[0].affectedRows) return null;
 

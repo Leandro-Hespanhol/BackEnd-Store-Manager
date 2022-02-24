@@ -4,7 +4,6 @@ const getAllSales = async () => {
   const query = `SELECT S.id as saleId, S.date, P.product_id as productId, P.quantity FROM sales S
   JOIN sales_products P ON P.sale_id = S.id;`;
   const [sales] = await connection.execute(query);
-  // console.log('salesMODEL', await sales);
   return sales;
 };
 
@@ -22,7 +21,6 @@ const findSaleById = async (id) => {
 const saleRegistered = async () => {
   const querySales = 'INSERT INTO sales () VALUES ();';
   const [sale] = await connection.execute(querySales);
-  // console.log('salesalesale', sale.insertId);
 
   return sale.insertId;
 };
@@ -30,9 +28,7 @@ const saleRegistered = async () => {
 const productSaleRegistered = async (saleId, productId, quantity) => {
   const queryProductSales = `INSERT INTO sales_products 
   (sale_id, product_id, quantity) VALUES (?,?,?);`;
-  // console.log('saleId, productId, quantity', saleId, productId, quantity);
   const productSale = await connection.execute(queryProductSales, [saleId, productId, quantity]);
-  // console.log('productsale', productSale);
 
   return productSale;
 };

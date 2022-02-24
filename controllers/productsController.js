@@ -6,7 +6,6 @@ const selectAll = async (_req, res) => res.status(200).json(await getAllProducts
 const selectbyId = async (req, res) => {
   const { id } = req.params;
   const getIdItem = await getById(id);
-  // console.log('getIdItem', getIdItem);
   
   if (!getIdItem) return res.status(404).json({ message: 'Product not found' });
 
@@ -16,8 +15,6 @@ const selectbyId = async (req, res) => {
 const createProduct = async (req, res, next) => {
   try {
   const { name, quantity } = req.body;
-  // const productFound = findProduct(name);
-  // console.log('CONTROLLER', await productFound);
 
   const newProduct = await productsCreate(name, quantity);
 
@@ -33,11 +30,9 @@ const editProduct = async (req, res) => {
 
   const checkExistance = await getById(id);
 
-  // console.log('checkExistance', checkExistance);
   if (!checkExistance) return res.status(404).json({ message: 'Product not found' });
 
   await productToEdit(id, name, quantity);
-  // console.log('CONTROL', checkExistance);
 
   return res.status(200).json({ id, name, quantity });
 };
