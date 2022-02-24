@@ -1,7 +1,6 @@
-const { findById, productEdition,
-  productDeletion } = require('../models/productsModel');
+const { findById, productDeletion } = require('../models/productsModel');
 const { getAllProducts, productsCreate,
-   getById } = require('../services/productsService');
+   getById, productToEdit } = require('../services/productsService');
 
 const selectAll = async (_req, res) => res.status(200).json(await getAllProducts());
 
@@ -33,11 +32,12 @@ const editProduct = async (req, res) => {
   const { name, quantity } = req.body;
   const { id } = req.params;
 
-  const [checkExistance] = await findById(id);
-  // console.log('existance', checkExistance);
-  if (!checkExistance.length) return res.status(404).json({ message: 'Product not found' });
+  const checkExistance = await getById(id);
 
-  await productEdition(id, name, quantity);
+  // console.log('checkExistance', checkExistance);
+  if (!checkExistance) return res.status(404).json({ message: 'Product not found' });
+
+  await productToEdit(id, name, quantity);
   // console.log('CONTROL', checkExistance);
 
   return res.status(200).json({ id, name, quantity });

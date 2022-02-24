@@ -1,4 +1,4 @@
-const { insertProduct, getAll, findById } = require('../models/productsModel');
+const { insertProduct, getAll, findById, productEdition } = require('../models/productsModel');
 
 const getAllProducts = async () => {
   const allProducts = await getAll();
@@ -14,6 +14,12 @@ const getById = async (id) => {
   return idFound[0];
 };
 
+const productToEdit = async (id, name, quantity) => {
+ const [editing] = await productEdition(id, name, quantity);
+ console.log('editing', editing.affectedRows);
+ return editing.affectedRows;
+};
+
 const productsCreate = async (name, quantity) => {
   // console.log('service', name, quantity);
   const newProduct = await insertProduct({
@@ -25,12 +31,8 @@ const productsCreate = async (name, quantity) => {
   return newProduct;
 };
 
-// const productExits = async () => {
-//   const existingProduct = await findProduct();
-//   if (!existingProduct.length) return
-// };
-
 module.exports = { 
   productsCreate,
   getAllProducts,
-  getById };
+  getById,
+  productToEdit };
