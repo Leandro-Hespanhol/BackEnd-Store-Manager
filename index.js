@@ -34,17 +34,17 @@ app.post('/products', nameValidation, quantityNumberValidation,
 rescue(createProduct));
 
 app.put('/products/:id', quantityNumberValidation, quantityValidation, nameValidation,
-editProduct);
+rescue(editProduct));
 
-app.delete('/products/:id', deleteProduct);
+app.delete('/products/:id', rescue(deleteProduct));
 
-app.get('/sales', getSales);
+app.get('/sales', rescue(getSales));
 
-app.get('/sales/:id', showSalesById);
+app.get('/sales/:id', rescue(showSalesById));
 
-app.post('/sales', quantityAmountValidation, productIdValidation, registerSale);
+app.post('/sales', quantityAmountValidation, productIdValidation, rescue(registerSale));
 
-app.put('/sales/:id', quantityAmountValidation, productIdValidation, editSale);
+app.put('/sales/:id', quantityAmountValidation, productIdValidation, rescue(editSale));
 
 app.use(error);
 

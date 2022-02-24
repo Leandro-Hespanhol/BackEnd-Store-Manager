@@ -17,13 +17,6 @@ const insertProduct = async ({ name, quantity }) => {
   };
 };
 
-const findProduct = async (name) => {
-  const query = 'SELECT * from products WHERE name = ?';
-  const [productFound] = await connection.execute(query, [name]);
-
-  return productFound.length;
-};
-
 const findById = async (id) => {
   const query = 'SELECT * from products WHERE id = ?;';
   const itemFound = await connection.execute(query, [id]);
@@ -53,7 +46,6 @@ const productDeletion = async (id) => {
 
 module.exports = { 
   insertProduct,
-  findProduct,
   getAll,
   findById,
   productEdition,
