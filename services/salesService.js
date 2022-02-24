@@ -25,8 +25,7 @@ const saleRegisterResponse = async (requisition) => {
 };
 
 const saleEdition = async (id, requisition) => {
-  const [idFound] = await findSaleById(id);
-  console.log('salesIDFOUND', idFound);
+  console.log('salesIDFOUND', id);
   console.log('salesREQUISITION', requisition);
 };
 
