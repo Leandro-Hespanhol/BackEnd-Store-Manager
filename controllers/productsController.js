@@ -16,6 +16,12 @@ const createProduct = async (req, res, next) => {
   try {
   const { name, quantity } = req.body;
 
+  const allProducts = await getAllProducts();
+
+  if (allProducts.some((product) => product.name === name)) {
+    return res.status(409).json({ message: 'Product already exists' });
+  }
+
   const newProduct = await productsCreate(name, quantity);
 
   return res.status(201).json(newProduct);

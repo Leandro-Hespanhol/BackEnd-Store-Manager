@@ -10,7 +10,6 @@ const { createProduct, selectAll,
 
 const { nameValidation, quantityValidation, 
   productIdValidation, 
-  repeatedProduct,
   quantityAmountValidation,
   quantityNumberValidation, 
    } = require('./middlewares/validation');
@@ -30,7 +29,7 @@ app.get('/products', selectAll);
 
 app.get('/products/:id', selectbyId);
 
-app.post('/products', nameValidation, repeatedProduct, quantityNumberValidation,
+app.post('/products', nameValidation, quantityNumberValidation,
  quantityValidation, 
 rescue(createProduct));
 

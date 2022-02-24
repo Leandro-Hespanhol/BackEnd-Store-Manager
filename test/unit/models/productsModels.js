@@ -6,12 +6,13 @@ const productModel = require('../../../models/productsModel');
  
 describe('Verifica model de products', () => {
   describe('Restaura condições iniciais e verifica produtos', () => {
+    const template = [[{
+      id: 1,
+      name: 'Martelo de Thor',
+      quantity: 10
+    }]]
     before(() => {
-      sinon.stub(connection, 'execute').resolves([[{
-        id: 1,
-        name: 'Martelo de Thor',
-        quantity: 10
-      }]])
+      sinon.stub(connection, 'execute').resolves(template)
     })
     after(() => {
       connection.execute.restore();
