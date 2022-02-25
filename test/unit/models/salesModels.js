@@ -141,4 +141,33 @@ describe('0- Verifica models de sales', () => {
       expect(productSales[0].affectedRows).not.to.be.equal(0)
     })
   })
+  describe('7- Verifica deleções bem sucedidas feitas pela deleteSale', () => {
+    before(() => {
+      sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }])
+    })
+    after(() => {
+      connection.execute.restore();
+    })
+    it('1- Verifica se a função de deletar exclui o produto', async () => {
+  
+      const deletion = await salesModel.deleteSale();
+      expect(deletion[0]).to.have.a.property('affectedRows')
+      expect(deletion[0].affectedRows).to.be.equal(1)
+    })
+  })
+
+  describe('8- Verifica retorno nulo na função de deleteSale', () => {
+    before(() => {
+      sinon.stub(connection, 'execute').resolves([[]])
+    })
+    after(() => {
+      connection.execute.restore();
+    })
+    it('1- Verifica valor nulo na função de deleção', async () => {
+  
+      const deletion = await salesModel.deleteSale();
+      expect(deletion).to.be.equal(null)
+
+    })
+  })
 })

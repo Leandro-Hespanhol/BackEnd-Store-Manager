@@ -42,9 +42,12 @@ const getEverySales = async () => {
   return sales;
 };
 
+const saleDeletion = async (id) => salesModel.deleteSale(id);
+
 module.exports = {
   saleRegisterResponse,
   searchSaleById,
   saleEdition,
   getEverySales,
+  saleDeletion,
 };

@@ -106,16 +106,6 @@ describe('0- Testando a camada de SalesServices', async () => {
   
   describe('5- Verifica função saleEdition', () => {
     before(() => {
-      const templateLooked = {
-        "saleId": 1,
-        "itemUpdated": [
-          {
-            "productId": 1,
-            "quantity": 6
-          }
-        ]
-      }
-
       sinon.stub(salesModel, 'updateSale').resolves()
     });
     
@@ -132,6 +122,18 @@ describe('0- Testando a camada de SalesServices', async () => {
     it('1- Verifica se as propriedades id, name, quantity estão presentes', async () => {
       const saleFound = await salesService.saleEdition(id, requisition)
       expect(saleFound).to.be.an('object')
+    });
+  })
+  describe('6- Verifica retorno nullo da função saleDeletion', () => {
+    before(() => {
+      sinon.stub(salesModel, 'deleteSale').resolves(null)
+    })
+    after(() => {
+      salesModel.deleteSale.restore();
+    })
+    it('1- Verifica produto criado', async () => {
+      const deletedSale = await salesService.saleDeletion();
+      expect(deletedSale).to.be.null;
     });
   })
 })

@@ -68,7 +68,6 @@ describe('0- Testando a camada de ProductsServices', async () => {
     });
     it('1- Verifica retorno undefined', async () => {
       const notFoundProduct = await productsService.getById()
-      console.log(notFoundProduct)
       expect(notFoundProduct).to.be.null;
       });
   })
