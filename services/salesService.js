@@ -1,6 +1,7 @@
 const salesModel = require('../models/salesModel');
 
 const saleRegisterResponse = async (requisition) => {
+  if (salesModel.productSaleRegistered) return true;
   const newSaleId = await salesModel.saleRegistered();
   
   requisition

@@ -25,8 +25,16 @@ const saleRegistered = async () => {
 };
 
 const productSaleRegistered = async (saleId, productId, quantity) => {
+  const queryQuantity = 'SELECT quantity from sales_products WHERE sale_id = ?';
+  const [saveQuantity] = await connection.execute(queryQuantity, [saleId]);
+
+  if (saveQuantity.some((storage) => storage.quantity < quantity)) {
+    return true;
+  }
+
   const queryProductSales = `INSERT INTO sales_products 
   (sale_id, product_id, quantity) VALUES (?,?,?);`;
+
   const productSale = await connection.execute(queryProductSales, [saleId, productId, quantity]);
   
   const queryProductsUpdate = 'UPDATE products SET quantity = quantity - ? WHERE id = ?';

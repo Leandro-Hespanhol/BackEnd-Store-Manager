@@ -1,4 +1,4 @@
-const { saleRegisterResponse, saleEdition, 
+const { saleEdition, 
   getEverySales, searchSaleById } = require('../services/salesService');
 
 const salesService = require('../services/salesService');
@@ -6,7 +6,11 @@ const salesService = require('../services/salesService');
 const registerSale = async (req, res) => {
   const requisition = req.body;
 
-  const saleResponse = await saleRegisterResponse(requisition);
+  if (salesService.saleRegisterResponse) {
+    return res.status(422).json({ message: 'Such amount is not permitted to sell' });
+  }
+
+  const saleResponse = await salesService.saleRegisterResponse(requisition);
 
   return res.status(201).json(saleResponse);
 };
