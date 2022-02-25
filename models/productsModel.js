@@ -39,7 +39,6 @@ const productDeletion = async (id) => {
   const productToDelete = await connection.execute(query, [id]);
 
   if (!productToDelete[0].affectedRows) return null;
-  console.log('productToDelete', productToDelete);
   return productToDelete;
 };
 
