@@ -1,10 +1,10 @@
-const { saleRegistered, productSaleRegistered, updateSale, getAllSales, findSaleById, 
-   } = require('../models/salesModel');
+const salesModel = require('../models/salesModel');
 
 const saleRegisterResponse = async (requisition) => {
-  const newSaleId = await saleRegistered();
-
-  requisition.forEach((sales) => productSaleRegistered(newSaleId, sales.productId, sales.quantity));
+  const newSaleId = await salesModel.saleRegistered();
+  
+  requisition
+  .forEach((sales) => salesModel.productSaleRegistered(newSaleId, sales.productId, sales.quantity));
   
   const salesObj = requisition.map((productsSales) => ({
       productId: Number(productsSales.productId),
@@ -20,7 +20,7 @@ const saleRegisterResponse = async (requisition) => {
 };
 
 const searchSaleById = async (id) => {
-  const [saleFound] = await findSaleById(id);
+  const [saleFound] = await salesModel.findSaleById(id);
 
   if (!saleFound) return null;
 
@@ -28,8 +28,7 @@ const searchSaleById = async (id) => {
 };
 
 const saleEdition = async (id, requisition) => {
-  console.log('newSale', id, ...requisition);
-  await updateSale(id, requisition[0].productId, requisition[0].quantity);
+  await salesModel.updateSale(id, requisition[0].productId, requisition[0].quantity);
   return ({
     saleId: id,
     itemUpdated: [
@@ -39,7 +38,7 @@ const saleEdition = async (id, requisition) => {
 };
 
 const getEverySales = async () => {
-  const sales = await getAllSales();
+  const sales = await salesModel.getAllSales();
   return sales;
 };
 

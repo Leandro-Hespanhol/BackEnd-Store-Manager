@@ -4,7 +4,7 @@ const sinon = require('sinon');
 const productsService = require('../../../services/productsService');
 const productsModel = require('../../../models/productsModel');
 
-describe('0- Testando a camada de services', async () => {
+describe('0- Testando a camada de ProductsServices', async () => {
   describe('1- Verifica retorno positivo do serviço getAll', async () => {
     before(() => {
       const templateProducts = [
@@ -60,7 +60,7 @@ describe('0- Testando a camada de services', async () => {
 
   describe('3- Verifica retorno nulo do serviço getById', () => {
     before(() => {
-       sinon.stub(productsModel, 'findById').resolves([[null]])
+       sinon.stub(productsModel, 'findById').resolves([[].length])
     });
   
     after(() => {
@@ -68,6 +68,7 @@ describe('0- Testando a camada de services', async () => {
     });
     it('1- Verifica retorno undefined', async () => {
       const notFoundProduct = await productsService.getById()
+      console.log(notFoundProduct)
       expect(notFoundProduct).to.be.null;
       });
   })
@@ -103,7 +104,7 @@ describe('0- Testando a camada de services', async () => {
       expect(newProduct).to.have.all.keys('name', 'quantity');
     });
   })
-  
+
   describe('6- Verifica retorno nullo da função deletingProduct', () => {
     before(() => {
       sinon.stub(productsModel, 'productDeletion').resolves(null)
