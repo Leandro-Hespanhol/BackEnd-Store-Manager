@@ -28,8 +28,8 @@ const searchSaleById = async (id) => {
 };
 
 const saleEdition = async (id, requisition) => {
-  const newSale = await updateSale(id, ...requisition);
-  console.log('newSale', newSale);
+  console.log('newSale', id, ...requisition);
+  await updateSale(id, requisition[0].productId, requisition[0].quantity);
   return ({
     saleId: id,
     itemUpdated: [

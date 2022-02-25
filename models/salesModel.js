@@ -21,7 +21,6 @@ const findSaleById = async (id) => {
 const saleRegistered = async () => {
   const querySales = 'INSERT INTO sales () VALUES ();';
   const [sale] = await connection.execute(querySales);
-
   return sale.insertId;
 };
 
@@ -29,17 +28,15 @@ const productSaleRegistered = async (saleId, productId, quantity) => {
   const queryProductSales = `INSERT INTO sales_products 
   (sale_id, product_id, quantity) VALUES (?,?,?);`;
   const productSale = await connection.execute(queryProductSales, [saleId, productId, quantity]);
-
   return productSale;
 };
 
-const updateSale = async (saleId, { productId, quantity }) => {
+const updateSale = async (saleId, productId, quantity) => {
   const query = `UPDATE sales_products 
     SET product_id = ?,
     quantity = ?
     WHERE sale_id = ?;`;
-  const updatedSale = await connection.execute(query, [productId, quantity, Number(saleId)]);
-  console.log('model', saleId, productId, quantity);
+    const updatedSale = await connection.execute(query, [productId, quantity, Number(saleId)]);
   return updatedSale;
 };
 

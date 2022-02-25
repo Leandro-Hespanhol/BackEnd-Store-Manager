@@ -16,7 +16,6 @@ const getById = async (id) => {
 
 const productToEdit = async (id, name, quantity) => {
  const [editing] = await productEdition(id, name, quantity);
- console.log('editing', editing.affectedRows);
  return editing.affectedRows;
 };
 
@@ -31,7 +30,6 @@ const productsCreate = async (name, quantity) => {
 
 const deletingProduct = async (id) => {
   const product = await productDeletion(id);
-  if (!product) return null;
   return product;
 };
 

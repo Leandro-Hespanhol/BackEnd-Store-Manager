@@ -22,7 +22,6 @@ const findById = async (id) => {
   const itemFound = await connection.execute(query, [id]);
 
   if (!itemFound.length) return null;
-  
   return itemFound;
 };
 
@@ -40,7 +39,7 @@ const productDeletion = async (id) => {
   const productToDelete = await connection.execute(query, [id]);
 
   if (!productToDelete[0].affectedRows) return null;
-
+  console.log('productToDelete', productToDelete);
   return productToDelete;
 };
 
