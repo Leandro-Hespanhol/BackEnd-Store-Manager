@@ -38,7 +38,6 @@ const getSales = async (_req, res) => res.status(200).json(await getEverySales()
 const deleteSale = async (req, res) => {
   const { id } = req.params;
   const isDeleted = await salesService.saleDeletion(id);
-  console.log('LINHA 41', isDeleted);
 
   if (!isDeleted) return res.status(404).json({ message: 'Sale not found' });
 

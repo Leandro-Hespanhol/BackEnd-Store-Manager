@@ -28,6 +28,10 @@ const productSaleRegistered = async (saleId, productId, quantity) => {
   const queryProductSales = `INSERT INTO sales_products 
   (sale_id, product_id, quantity) VALUES (?,?,?);`;
   const productSale = await connection.execute(queryProductSales, [saleId, productId, quantity]);
+  
+  const queryProductsUpdate = 'UPDATE products SET quantity = quantity - ? WHERE id = ?';
+  await connection.execute(queryProductsUpdate, [quantity, productId]);
+
   return productSale;
 };
 
@@ -36,13 +40,25 @@ const updateSale = async (saleId, productId, quantity) => {
     SET product_id = ?,
     quantity = ?
     WHERE sale_id = ?;`;
-    const updatedSale = await connection.execute(query, [productId, quantity, Number(saleId)]);
+  const updatedSale = await connection.execute(query, [productId, quantity, Number(saleId)]);
+  
   return updatedSale;
 };
 
 const deleteSale = async (id) => {
+  const queryQuantity = 'SELECT product_id, quantity from sales_products WHERE sale_id = ?';
+  const [saveQuantity] = await connection.execute(queryQuantity, [id]);
+  console.log('LINHA51 SALES MOVEL', saveQuantity);
+
   const deletedSale = await connection.execute('DELETE from sales WHERE id = ?', [id]);
   if (!deletedSale[0].affectedRows) return null;
+
+  const queryProductsUpdate = 'UPDATE products SET quantity = quantity + ? WHERE id = ?';
+  
+  saveQuantity
+  .forEach(async (sale) => connection
+  .execute(queryProductsUpdate, [sale.quantity, sale.product_id]));
+
   return deletedSale;
 };
 
