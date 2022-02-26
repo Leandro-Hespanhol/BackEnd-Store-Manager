@@ -10,7 +10,6 @@ const registerSale = async (req, res) => {
   const storageProducts = await productsService.getAllProducts();
   requisition.map((buyer) => {
     storageProducts.map((storage) => {
-      console.log('LINHA12 CONTROLLER', storage.quantity, buyer.quantity);
       if (storage.id === buyer.productId && storage.quantity < buyer.quantity) {
         return res.status(422).json({
           message: 'Such amount is not permitted to sell',
@@ -33,7 +32,6 @@ const registerSale = async (req, res) => {
 const showSalesById = async (req, res) => {
   const { id } = req.params;
   const idFound = await searchSaleById(id);
-  // console.log('linha15salescontroll', idFound);
   
   if (!idFound.length) return res.status(404).json({ message: 'Sale not found' });
 
