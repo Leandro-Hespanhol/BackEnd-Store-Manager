@@ -2,13 +2,28 @@ const { saleEdition,
   getEverySales, searchSaleById } = require('../services/salesService');
 
 const salesService = require('../services/salesService');
+const productsService = require('../services/productsService');
 
 const registerSale = async (req, res) => {
   const requisition = req.body;
 
-  if (salesService.saleRegisterResponse) {
-    return res.status(422).json({ message: 'Such amount is not permitted to sell' });
-  }
+  const storageProducts = await productsService.getAllProducts();
+  requisition.map((buyer) => {
+    storageProducts.map((storage) => {
+      console.log('LINHA12 CONTROLLER', storage.quantity, buyer.quantity);
+      if (storage.id === buyer.productId && storage.quantity < buyer.quantity) {
+        return res.status(422).json({
+          message: 'Such amount is not permitted to sell',
+        });
+      }
+      return true;
+    });
+    return true;
+  });
+
+  // if (await salesService.saleRegisterResponse(requisition) === 'Insuficient quantity') {
+  //   return res.status(422).json({ message: 'Such amount is not permitted to sell' });
+  // }
 
   const saleResponse = await salesService.saleRegisterResponse(requisition);
 

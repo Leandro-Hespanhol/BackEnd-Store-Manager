@@ -1,15 +1,19 @@
 const salesModel = require('../models/salesModel');
 
 const saleRegisterResponse = async (requisition) => {
-  if (salesModel.productSaleRegistered) return true;
+  // console.log('LINHA 4 salesService', requisition);
+
+// const boolTest = salesModel.checkQuantity(requisition);
+
+//   if (boolTest) return 'Insuficient quantity';
+  
   const newSaleId = await salesModel.saleRegistered();
   
   requisition
   .forEach((sales) => salesModel.productSaleRegistered(newSaleId, sales.productId, sales.quantity));
   
   const salesObj = requisition.map((productsSales) => ({
-      productId: Number(productsSales.productId),
-      quantity: productsSales.quantity,
+      productId: Number(productsSales.productId), quantity: productsSales.quantity,
   }));
 
   return ({
