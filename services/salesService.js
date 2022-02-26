@@ -1,12 +1,6 @@
 const salesModel = require('../models/salesModel');
 
-const saleRegisterResponse = async (requisition) => {
-  // console.log('LINHA 4 salesService', requisition);
-
-// const boolTest = salesModel.checkQuantity(requisition);
-
-//   if (boolTest) return 'Insuficient quantity';
-  
+const saleRegisterResponse = async (requisition) => {  
   const newSaleId = await salesModel.saleRegistered();
   
   requisition
