@@ -15,11 +15,11 @@ const createProduct = async (req, res) => {
   const { name, quantity } = req.body;
 
   const allProducts = await productsService.getAllProducts();
-
+  
   if (allProducts.some((product) => product.name === name)) {
     return res.status(409).json({ message: 'Product already exists' });
   }
-
+  
   const newProduct = await productsService.productsCreate(name, quantity);
 
   return res.status(201).json(newProduct);
